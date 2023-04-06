@@ -44,11 +44,9 @@ def build_tool(config) -> Tool:
         kk = 3
         for syn in syns[:kk]:
             ans.append(syn.text)
-        if ifprint==0:
-            return ans
-        else:
-            js = {'names':ans}
-            return js
+        
+        js = {'names':ans}
+        return js
 
     @tool.get("/get_allname")
     def get_allname( cid: str ):
@@ -60,11 +58,9 @@ def build_tool(config) -> Tool:
         ans = []
         for syn in syns:
             ans.append(syn.text)
-        if ifprint==0:
-            return ans
-        else:
-            js = {'names':ans}
-            return js
+        
+        js = {'names':ans}
+        return js
 
     @tool.get("/get_id_by_struct")
     def get_id_by_struct(smiles : str):
@@ -98,7 +94,8 @@ def build_tool(config) -> Tool:
         soup = BeautifulSoup(html_doc,"html.parser",from_encoding="utf-8")
         cids = soup.find_all('cid')
         if len(cids) > 0:
-            if name in get_name(cids[0].text, ifprint=0):
+            if name in get_name(cids[0].text, 
+                                rint=0):
                 ans = cids[0].text
                 js = {'state':'precise', 'content':ans}
                 return js
